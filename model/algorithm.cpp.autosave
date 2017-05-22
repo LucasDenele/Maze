@@ -186,6 +186,20 @@ void KruskallMazeGenerator::step()
 
 Direction DFSProgram::move(LockedRoom currentRoom, std::vector<AdjLockedRoom> adjRooms, const Position& target)
 {
+    if(adjRooms.size() == 0)
+        return Direction::Stop;
+
+    for(int i = 0; i < adjRooms.size(); i++) {
+        AdjLockedRoom alr = adjRooms[i];
+        if(alr.isMarked()) {
+            break;
+        }
+
+        currentRoom.unMark();
+        return alr.direction();
+    }
+
+    return adjRooms[0].direction();
 }
 
 Direction CustomProgram::move(LockedRoom currentRoom, std::vector<AdjLockedRoom> adjRooms, const Position& target)

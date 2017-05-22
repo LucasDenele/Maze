@@ -5,6 +5,8 @@ class Maze;
 class Room;
 class Door;
 
+#include <stack>
+
 #include "mazesolver.h"
 #include "mazegenerator.h"
 
@@ -15,6 +17,11 @@ public:
     bool isFinished() override;
 
     void step() override;
+
+    Room* currentRoom;
+    std::stack<Room*> savedRooms;
+    int cols, rows;
+    bool finished, deadEnd;
 };
 
 class KruskallMazeGenerator : public MazeGenerator {
@@ -24,6 +31,8 @@ public:
     bool isFinished() override;
 
     void step() override;
+
+    bool finished;
 };
 
 class OpenAllMazeGenerator : public MazeGenerator {
